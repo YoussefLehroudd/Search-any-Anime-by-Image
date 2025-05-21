@@ -1,0 +1,57 @@
+{
+	"name": "Yousseflehroud",
+	"version": "0.1.0",
+	"private": true,
+	"description": "A Anime search engine that fetches anime info based on the image provided.",
+	"keywords": [
+		"Anime",
+		"React",
+		"Anilist",
+		"Search-Engine",
+		"Trace-moe",
+		"anime-search"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ayushgptaa/Yousseflehroud"
+	},
+	"dependencies": {
+		"@testing-library/jest-dom": "^5.11.9",
+		"@testing-library/react": "^11.2.3",
+		"@testing-library/user-event": "^12.6.2",
+		"axios": "^0.21.1",
+		"framer-motion": "^4.1.17",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-dropzone": "^11.3.2",
+		"react-icons": "^4.2.0",
+		"react-scripts": "^4.0.3",
+		"styled-components": "^5.2.3",
+		"web-vitals": "^0.2.4"
+	},
+	"scripts": {
+		"getsauce": "set PORT=3006 && react-scripts start",
+		"dev": "set NODE_OPTIONS=--openssl-legacy-provider && set PORT=3006 && react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}
