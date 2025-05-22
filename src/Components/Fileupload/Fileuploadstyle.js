@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import { respondTo } from '../../styles/mixins';
 
 export const Container = styled.div`
-	background: var(--primary);
 	width: 88%;
 	height: 310px;
 	padding: 1.3rem;
 	padding-bottom: 0.5rem;
 	margin: 1.5em auto;
 	text-align: center;
-	background: #ffffff;
-	box-shadow: 0px 5px 29px -4px rgba(0, 0, 0, 0.25), inset 0px 1px 5px rgba(0, 0, 0, 0.25);
+	background: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(8px);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 30px;
 
 	& p {
@@ -20,6 +21,7 @@ export const Container = styled.div`
 		font-size: 0.8rem;
 		margin-top: 1rem;
 		letter-spacing: 1px;
+		color: rgba(255, 255, 255, 0.9);
 	}
 	${respondTo.xs`
 		padding-bottom:0;

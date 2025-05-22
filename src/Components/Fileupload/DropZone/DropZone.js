@@ -9,11 +9,13 @@ import Urlinput from 'Components/Ui/Urlinput';
 import { Context } from 'store/Context-Provider';
 
 const Dropcontainer = styled.div`
-	color: #000;
+	color: rgba(255, 255, 255, 0.9);
 	box-sizing: border-box;
 	height: 75%;
 	margin: 0.3rem;
-	background: var(--lavenderlight);
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(5px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 20px;
 	user-select: none;
 	padding-top: 1.1rem;
@@ -36,8 +38,10 @@ const PreviewContainer = styled(Imagecontainer)`
 	height: 120px;
 	width: 200px;
 	margin: auto;
-	position: relative;
 	border-radius: calc(var(--radius) / 2);
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(5px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	${respondTo.xs`
 		height: 150px;
 		width: 250px;

@@ -39,7 +39,7 @@ export const GlobalStyle = styled.createGlobalStyle`
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		font-family: 'Inter', sans-serif;
-		background: linear-gradient(116.2deg, #d9e5fa -0.48%, #fad9f3 102.36%);
+		background: transparent;
 		text-size-adjust: none;
 		-webkit-text-size-adjust: none;
 		-moz-text-size-adjust: none;

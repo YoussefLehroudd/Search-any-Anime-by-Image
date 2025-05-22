@@ -8,7 +8,8 @@ import { respondTo } from 'styles/mixins';
 
 const Navbar = styled.nav`
 	padding: 0.5em 1.5rem;
-	background: var(--nav);
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(8px);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -16,8 +17,8 @@ const Navbar = styled.nav`
 	width: 90%;
 	margin: auto;
 	margin-top: 1rem;
-	mix-blend-mode: normal;
-	filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 
 	${respondTo.xs`
 		width: 400px;
@@ -36,7 +37,7 @@ const Navbar = styled.nav`
 const Title = styled.h1`
 	font-size: 1rem;
 	font-weight: var(--medium);
-	color: #000;
+	color: rgba(255, 255, 255, 0.9);
 
 	${respondTo.lg`
 		font-size: 1.2rem;
@@ -53,7 +54,7 @@ const index = () => {
 					target="_blank"
 					rel="noreferrer"
 					aria-label="Github link">
-					<IconContext.Provider value={{ size: '1.4rem', color: '#000000' }}>
+					<IconContext.Provider value={{ size: '1.4rem', color: 'rgba(255, 255, 255, 0.9)' }}>
 						<GoMarkGithub />
 					</IconContext.Provider>
 				</a>

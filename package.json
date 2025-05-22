@@ -32,6 +32,7 @@
 	"scripts": {
 		"getsauce": "set PORT=3006 && react-scripts start",
 		"dev": "set PORT=3006 && react-scripts start",
+		"dev:legacy": "set NODE_OPTIONS=--openssl-legacy-provider && set PORT=3006 && react-scripts start",
 		"build": "react-scripts build",
 		"build:legacy": "set NODE_OPTIONS=--openssl-legacy-provider&& react-scripts build",
 		"test": "react-scripts test",

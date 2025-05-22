@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Fileupload from 'Components/Fileupload/Fileupload';
 import Results from 'Components/Resultcard/Results';
 import { GlobalStyle } from 'styles/GlobalStyle';
+import VideoBackground from 'Components/Ui/VideoBackground';
 import Navbar from 'Components/Navbar';
 import { ContextProvider } from 'store/Context-Provider';
 import { ServerError, UserError } from 'Components/Ui/Errorcard';
@@ -22,6 +23,7 @@ function App() {
 
 	return (
 		<div className="App">
+			<VideoBackground />
 			<GlobalStyle />
 			<Navbar />
 			<ContextProvider>

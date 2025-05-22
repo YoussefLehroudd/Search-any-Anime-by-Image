@@ -10,12 +10,15 @@ export const Animecard = styled(motion.div)`
 	bottom: 0;
 	height: 50%;
 	width: 100vw;
-	background: var(--cardbg);
+	background: rgba(21, 21, 21, 0.75);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--card-radius);
 `;
 
 export const Banner = styled.div`
-	background-color: var(--cardbg);
+	background-color: rgba(21, 21, 21, 0.85);
+	backdrop-filter: blur(5px);
 	height: 30%;
 	position: relative;
 	border-radius: var(--card-radius);
@@ -25,7 +28,7 @@ export const Banner = styled.div`
 `;
 export const Bannerimg = styled.img`
 	border-radius: var(--card-radius);
-	background-color: var(--cardbg);
+	background-color: rgba(21, 21, 21, 0.85);
 `;
 
 export const Banneroverlay = styled.div`
@@ -91,7 +94,7 @@ export const Animeinfo = styled.div`
 `;
 export const Animetext = styled.div`
 	padding-top: 0.4rem;
-	color: var(--lavender);
+	color: rgba(255, 255, 255, 0.95);
 `;
 
 export const Title = styled.h1`
