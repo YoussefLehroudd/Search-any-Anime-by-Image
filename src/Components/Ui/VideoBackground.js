@@ -1,6 +1,18 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { BsVolumeMuteFill, BsVolumeUpFill } from 'react-icons/bs';
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
 
 const VideoContainer = styled.div`
   position: fixed;
@@ -11,6 +23,15 @@ const VideoContainer = styled.div`
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: ${gradientAnimation} 15s ease infinite;
+    &::after {
+      display: none;
+    }
+  }
   
   &::after {
     content: '';
@@ -29,6 +50,10 @@ const VideoContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -52,6 +77,10 @@ const MuteButton = styled.button`
   &:hover {
     background: rgba(0, 0, 0, 0.7);
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const VideoBackground = () => {
@@ -64,7 +93,7 @@ const VideoBackground = () => {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
   const startVideo = useCallback(async () => {
-    if (videoRef.current) {
+    if (videoRef.current && !isMobile) {
       try {
         await videoRef.current.play();
       } catch (error) {
@@ -78,30 +107,34 @@ const VideoBackground = () => {
         }
       }
     }
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
-    startVideo();
-    
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        startVideo();
-      }
-    };
+    if (!isMobile) {
+      startVideo();
+      
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          startVideo();
+        }
+      };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [startVideo]);
-
-  useEffect(() => {
-    localStorage.setItem('videoMuted', JSON.stringify(isMuted));
-    if (videoRef.current) {
-      videoRef.current.muted = isMuted;
+      return () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      };
     }
-  }, [isMuted]);
+  }, [startVideo, isMobile]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      localStorage.setItem('videoMuted', JSON.stringify(isMuted));
+      if (videoRef.current) {
+        videoRef.current.muted = isMuted;
+      }
+    }
+  }, [isMuted, isMobile]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -110,22 +143,26 @@ const VideoBackground = () => {
   return (
     <>
       <VideoContainer>
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          playsInline
-          muted={isMuted}
-          preload="auto"
-          onCanPlay={startVideo}
-          onEnded={(e) => e.target.play()}
-        >
-          <source src={isMobile ? "/THIS IS 4K ANIME (Jujutsu Kaisen)1080.mp4" : "/THIS IS 4K ANIME (Jujutsu Kaisen).mp4"} type="video/mp4" />
-        </video>
+        {!isMobile && (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            playsInline
+            muted={isMuted}
+            preload="auto"
+            onCanPlay={startVideo}
+            onEnded={(e) => e.target.play()}
+          >
+            <source src="/THIS IS 4K ANIME (Jujutsu Kaisen).mp4" type="video/mp4" />
+          </video>
+        )}
       </VideoContainer>
-      <MuteButton onClick={toggleMute}>
-        {isMuted ? <BsVolumeMuteFill size={20} /> : <BsVolumeUpFill size={20} />}
-      </MuteButton>
+      {!isMobile && (
+        <MuteButton onClick={toggleMute}>
+          {isMuted ? <BsVolumeMuteFill size={20} /> : <BsVolumeUpFill size={20} />}
+        </MuteButton>
+      )}
     </>
   );
 };
