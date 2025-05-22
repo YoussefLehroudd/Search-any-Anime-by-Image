@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { BsVolumeMuteFill, BsVolumeUpFill } from 'react-icons/bs';
 
@@ -61,13 +61,14 @@ const VideoBackground = () => {
     return savedMute ? JSON.parse(savedMute) : false;
   });
 
-  const startVideo = async () => {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  const startVideo = useCallback(async () => {
     if (videoRef.current) {
       try {
         await videoRef.current.play();
       } catch (error) {
         console.log("Video autoplay failed:", error);
-        // If autoplay fails, try again with muted video
         setIsMuted(true);
         videoRef.current.muted = true;
         try {
@@ -77,23 +78,23 @@ const VideoBackground = () => {
         }
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
     startVideo();
     
-    // Add event listeners for visibility change
-    document.addEventListener("visibilitychange", () => {
+    const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         startVideo();
       }
-    });
-
-    // Cleanup
-    return () => {
-      document.removeEventListener("visibilitychange", startVideo);
     };
-  }, []);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [startVideo]);
 
   useEffect(() => {
     localStorage.setItem('videoMuted', JSON.stringify(isMuted));
@@ -115,10 +116,11 @@ const VideoBackground = () => {
           loop
           playsInline
           muted={isMuted}
+          preload="auto"
           onCanPlay={startVideo}
           onEnded={(e) => e.target.play()}
         >
-          <source src="/THIS IS 4K ANIME (Jujutsu Kaisen).mp4" type="video/mp4" />
+          <source src={isMobile ? "/THIS IS 4K ANIME (Jujutsu Kaisen)1080.mp4" : "/THIS IS 4K ANIME (Jujutsu Kaisen).mp4"} type="video/mp4" />
         </video>
       </VideoContainer>
       <MuteButton onClick={toggleMute}>
